@@ -13,36 +13,54 @@ solution = (
     )
 
 def check_columns(specifications, solution):
-    result = ()
-    for i in range(len(specifications[0])):
+    columns = specifications[0]
+    rows = specifications[1]
+    res_columns = ()
+    for i in range(len(columns)):
+        result = ()
         sum = 0
-        for j in range(len(specifications[0])):
+        if solution[-1][i] == 1:
+            sum = 1
+        for j in range(len(rows) - 1):
             if solution[j][i] == 1:
                 sum += 1
-        result += ((sum,),)
-        print(sum)
-    return result
+                if solution[j+1][i] == 0:
+                    result += (sum,)
+                    sum = 0
+        if sum != 0:
+            result += (sum,)
+        res_columns += ((result,))
+    return res_columns
 
 def check_rows(specifications, solution):
-    result = ()
-    res = ()
-    for i in range(len(specifications[1])):
+    columns = specifications[0]
+    rows = specifications[1]
+    res_rows = ()
+    for i in range(len(rows)):
+        result = ()
         sum = 0
-        for j in range(len(specifications[1]) - 1):
+        if solution[i][-1] == 1:
+            sum = 1
+        for j in range(len(columns) - 1):
             if solution[i][j] == 1:
                 sum += 1
                 if solution[i][j+1] == 0:
                     result += (sum,)
                     sum = 0
-                else:
-                    sum += 1
-            print(result)
-        # res += ((result,))
-        result = ()
-    return res
+        if sum != 0:
+            result += (sum,)
+        res_rows += ((result,))
+    return res_rows
 
 def is_nonogram_resolved(specifications, solution):
-    pass
+    rows = specifications[1]
+    print(rows)
+    columns = specifications[0]
+    print(columns)
+    solution_rows = check_rows(rows, solution)
+    solution_columns = check_columns(columns, solution)
+    if solution_rows == rows and solution_columns == columns:
+        return True
+    return False
 
-print(check_columns(specifications, solution))
-print(check_rows(specifications, solution))
+print(is_nonogram_resolved(specifications, solution))

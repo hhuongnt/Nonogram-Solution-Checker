@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 specifications = (
-        ((2,), (4,), (4,), (4,), (2,)),
-        ((1, 1), (5,), (5,), (3,), (1,))
+        ((2,), (4,), (4,)),
+        ((1,), (3,), (3,), (2,), (1,))
     )
 
 solution = (
-        (0, 1, 0, 1, 0),
-        (1, 1, 1, 1, 1),
-        (1, 1, 1, 1, 1),
-        (0, 1, 1, 1, 0),
-        (0, 0, 1, 0, 0)
+        (0, 1, 0),
+        (1, 1, 1),
+        (1, 1, 1),
+        (0, 1, 1),
+        (1, 1, 1)
     )
 
 def check_columns(specifications, solution):
@@ -54,13 +54,21 @@ def check_rows(specifications, solution):
 
 def is_nonogram_resolved(specifications, solution):
     rows = specifications[1]
-    print(rows)
     columns = specifications[0]
-    print(columns)
-    solution_rows = check_rows(rows, solution)
-    solution_columns = check_columns(columns, solution)
-    if solution_rows == rows and solution_columns == columns:
+    solution_rows = check_rows(specifications, solution)
+    solution_columns = check_columns(specifications, solution)
+    if solution_rows == rows:
         return True
     return False
+
+print(is_nonogram_resolved(specifications, solution))
+
+solution = (
+        (0, 1, 0),
+        (1, 1, 1),
+        (1, 1, 1),
+        (0, 1, 1),
+        (0, 0, 1)
+    )
 
 print(is_nonogram_resolved(specifications, solution))
